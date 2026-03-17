@@ -1,19 +1,43 @@
-import { AddBookmarkForm } from "@/components/bookmarks/add-bookmark-form";
 import { BookmarkGrid } from "@/components/bookmarks/bookmark-grid";
 import { BookmarksHeading } from "@/components/dashboard/bookmarks-heading";
 import { SortDropdown } from "@/components/layout/sort-dropdown";
 import { EmptyState } from "@/components/shared/empty-state";
 import { getBookmarks } from "@/lib/utils/bookmark-queries";
+import { getBookmarksHeading } from "@/lib/utils/page-heading";
+import {
+  getSearchQuery,
+  getSortQuery,
+  getTagsQuery,
+} from "@/lib/utils/search-params";
 
-export default async function DashboardPage() {
-  const bookmarks = await getBookmarks(false);
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const params = await searchParams;
+
+  const query = getSearchQuery(params.q);
+  const tags = getTagsQuery(params.tags);
+  const sort = getSortQuery(params.sort);
+
+  const bookmarks = await getBookmarks({
+    isArchived: false,
+    query,
+    tags,
+    sort,
+  });
+
+  const heading = getBookmarksHeading({
+    query,
+    tags,
+    isArchived: false,
+  });
 
   return (
     <section className="space-y-300">
-      <AddBookmarkForm />
-
       <div className="rounded-radius-16 bg-white p-250 shadow-soft dark:bg-darkneutral-600">
-        <BookmarksHeading title="All bookmarks">
+        <BookmarksHeading title={heading}>
           <SortDropdown />
         </BookmarksHeading>
       </div>
@@ -22,8 +46,8 @@ export default async function DashboardPage() {
         <BookmarkGrid bookmarks={bookmarks} />
       ) : (
         <EmptyState
-          title="No bookmarks yet"
-          description="Add your first bookmark to start building your collection."
+          title="No matching bookmarks"
+          description="Try changing your search, tags, or sort options."
         />
       )}
     </section>
