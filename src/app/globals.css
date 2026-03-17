@@ -1,5 +1,36 @@
 @import "tailwindcss";
 
+/* Class-based dark mode: applies dark: variants when .dark is on a parent */
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Wire Next.js font variable into Tailwind's font-sans utility */
+  --font-sans: var(--font-manrope);
+
+  /* Spacing scale (4px base grid) */
+  --spacing-100: 0.25rem;   /* 4px  */
+  --spacing-150: 0.375rem;  /* 6px  */
+  --spacing-200: 0.5rem;    /* 8px  */
+  --spacing-250: 0.625rem;  /* 10px */
+  --spacing-300: 0.75rem;   /* 12px */
+  --spacing-400: 1rem;      /* 16px */
+
+  /* Dark neutral palette (teal-dark scale) */
+  --color-darkneutral-0:   #ffffff;
+  --color-darkneutral-100: #c8d8d7;
+  --color-darkneutral-500: #004746;
+  --color-darkneutral-600: #002e2d;
+  --color-darkneutral-800: #001f1f;
+  --color-darkneutral-900: #001414;
+
+  /* Border radius */
+  --radius-radius-10: 0.625rem;  /* 10px */
+  --radius-radius-16: 1rem;      /* 16px */
+
+  /* Shadows */
+  --shadow-soft: 0 2px 8px 0 rgb(0 0 0 / 0.08);
+}
+
 :root {
   --background: #e8f0ef;
   --foreground: #051513;

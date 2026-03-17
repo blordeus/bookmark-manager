@@ -1,11 +1,11 @@
+import { type EmailOtpType } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
-export async function GET(request) {
+export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-
   const token_hash = searchParams.get("token_hash");
-  const type = searchParams.get("type");
+  const type = searchParams.get("type") as EmailOtpType | null;
 
   if (token_hash && type) {
     const supabase = await createClient();
@@ -15,7 +15,13 @@ export async function GET(request) {
       token_hash,
     });
 
-    if (!error) redirect("/dashboard");
+    if (!error) {
+      if (type === "recovery") {
+        redirect("/reset-password");
+      }
+
+      redirect("/dashboard");
+    }
   }
 
   redirect("/login");
