@@ -1,10 +1,11 @@
 import { BookmarkGrid } from "@/components/bookmarks/bookmark-grid";
 import { BookmarksHeading } from "@/components/dashboard/bookmarks-heading";
 import { SortDropdown } from "@/components/layout/sort-dropdown";
-import { mockBookmarks } from "@/lib/utils/mock-bookmarks";
+import { EmptyState } from "@/components/shared/empty-state";
+import { getBookmarks } from "@/lib/utils/bookmark-queries";
 
-export default function ArchivedPage() {
-  const archivedBookmarks = mockBookmarks.filter((bookmark) => bookmark.is_archived);
+export default async function ArchivedPage() {
+  const bookmarks = await getBookmarks(true);
 
   return (
     <section className="space-y-300">
@@ -14,7 +15,14 @@ export default function ArchivedPage() {
         </BookmarksHeading>
       </div>
 
-      <BookmarkGrid bookmarks={archivedBookmarks} />
+      {bookmarks.length > 0 ? (
+        <BookmarkGrid bookmarks={bookmarks} />
+      ) : (
+        <EmptyState
+          title="No archived bookmarks"
+          description="Archived bookmarks will appear here."
+        />
+      )}
     </section>
   );
 }

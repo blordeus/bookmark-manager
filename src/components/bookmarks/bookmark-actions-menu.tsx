@@ -1,18 +1,36 @@
 "use client";
 
-import { Copy, EllipsisVertical, ExternalLink, Pencil, Pin, ArchiveRestore, Archive, Trash2 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import {
+  Archive,
+  ArchiveRestore,
+  Copy,
+  EllipsisVertical,
+  ExternalLink,
+  Pencil,
+  Pin,
+  Trash2,
+} from "lucide-react";
+import { useEffect, useRef, useState, useTransition } from "react";
+import {
+  archiveBookmarkAction,
+  deleteBookmarkAction,
+  togglePinBookmarkAction,
+  unarchiveBookmarkAction,
+} from "@/actions/bookmarks";
 
 type BookmarkActionsMenuProps = {
+  bookmarkId: string;
   isArchived: boolean;
   isPinned: boolean;
 };
 
 export function BookmarkActionsMenu({
+  bookmarkId,
   isArchived,
   isPinned,
 }: BookmarkActionsMenuProps) {
   const [open, setOpen] = useState(false);
+  const [pending, startTransition] = useTransition();
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -22,13 +40,8 @@ export function BookmarkActionsMenu({
       }
     }
 
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    if (open) document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
   return (
@@ -43,30 +56,74 @@ export function BookmarkActionsMenu({
       </button>
 
       {open ? (
-        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-[200px] rounded-radius-16 border border-neutral-300 bg-white p-100 shadow-soft dark:border-darkneutral-500 dark:bg-darkneutral-600">
+        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-[220px] rounded-radius-16 border border-neutral-300 bg-white p-100 shadow-soft dark:border-darkneutral-500 dark:bg-darkneutral-600">
           <MenuItem icon={<ExternalLink className="h-4 w-4" />} label="Visit" />
           <MenuItem icon={<Copy className="h-4 w-4" />} label="Copy URL" />
-
           {!isArchived ? (
             <>
-              <MenuItem
-                icon={<Pin className="h-4 w-4" />}
-                label={isPinned ? "Unpin" : "Pin"}
-              />
+              <button
+                type="button"
+                disabled={pending}
+                onClick={() =>
+                  startTransition(async () => {
+                    await togglePinBookmarkAction(bookmarkId, !isPinned);
+                    setOpen(false);
+                  })
+                }
+                className="flex w-full items-center gap-150 rounded-radius-10 px-150 py-125 text-left text-[14px] font-medium text-neutral-900 transition hover:bg-neutral-100 dark:text-white dark:hover:bg-darkneutral-500"
+              >
+                <Pin className="h-4 w-4" />
+                {isPinned ? "Unpin" : "Pin"}
+              </button>
+
               <MenuItem icon={<Pencil className="h-4 w-4" />} label="Edit" />
-              <MenuItem icon={<Archive className="h-4 w-4" />} label="Archive" />
+
+              <button
+                type="button"
+                disabled={pending}
+                onClick={() =>
+                  startTransition(async () => {
+                    await archiveBookmarkAction(bookmarkId);
+                    setOpen(false);
+                  })
+                }
+                className="flex w-full items-center gap-150 rounded-radius-10 px-150 py-125 text-left text-[14px] font-medium text-neutral-900 transition hover:bg-neutral-100 dark:text-white dark:hover:bg-darkneutral-500"
+              >
+                <Archive className="h-4 w-4" />
+                Archive
+              </button>
             </>
           ) : (
             <>
-              <MenuItem
-                icon={<ArchiveRestore className="h-4 w-4" />}
-                label="Unarchive"
-              />
-              <MenuItem
-                icon={<Trash2 className="h-4 w-4" />}
-                label="Delete permanently"
-                destructive
-              />
+              <button
+                type="button"
+                disabled={pending}
+                onClick={() =>
+                  startTransition(async () => {
+                    await unarchiveBookmarkAction(bookmarkId);
+                    setOpen(false);
+                  })
+                }
+                className="flex w-full items-center gap-150 rounded-radius-10 px-150 py-125 text-left text-[14px] font-medium text-neutral-900 transition hover:bg-neutral-100 dark:text-white dark:hover:bg-darkneutral-500"
+              >
+                <ArchiveRestore className="h-4 w-4" />
+                Unarchive
+              </button>
+
+              <button
+                type="button"
+                disabled={pending}
+                onClick={() =>
+                  startTransition(async () => {
+                    await deleteBookmarkAction(bookmarkId);
+                    setOpen(false);
+                  })
+                }
+                className="flex w-full items-center gap-150 rounded-radius-10 px-150 py-125 text-left text-[14px] font-medium text-red-800 transition hover:bg-red-600/10"
+              >
+                <Trash2 className="h-4 w-4" />
+                Delete permanently
+              </button>
             </>
           )}
         </div>
@@ -78,20 +135,14 @@ export function BookmarkActionsMenu({
 function MenuItem({
   icon,
   label,
-  destructive = false,
 }: {
   icon: React.ReactNode;
   label: string;
-  destructive?: boolean;
 }) {
   return (
     <button
       type="button"
-      className={`flex w-full items-center gap-150 rounded-radius-10 px-150 py-125 text-left text-[14px] font-medium transition ${
-        destructive
-          ? "text-red-800 hover:bg-red-600/10"
-          : "text-neutral-900 hover:bg-neutral-100 dark:text-white dark:hover:bg-darkneutral-500"
-      }`}
+      className="flex w-full items-center gap-150 rounded-radius-10 px-150 py-125 text-left text-[14px] font-medium text-neutral-900 transition hover:bg-neutral-100 dark:text-white dark:hover:bg-darkneutral-500"
     >
       {icon}
       <span>{label}</span>

@@ -46,6 +46,7 @@ export function BookmarkCard({ bookmark }: BookmarkCardProps) {
           ) : null}
 
           <BookmarkActionsMenu
+            bookmarkId={bookmark.id}
             isArchived={bookmark.is_archived}
             isPinned={bookmark.is_pinned}
           />
