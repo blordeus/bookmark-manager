@@ -13,3 +13,17 @@ export type Profile = {
   email: string;
   theme: "light" | "dark";
 };
+
+export type Bookmark = {
+  id: string;
+  title: string;
+  description: string;
+  url: string;
+  favicon_url?: string | null;
+  tags: string[];
+  visit_count: number;
+  created_at: string;
+  last_visited_at: string | null;
+  is_archived: boolean;
+  is_pinned: boolean;
+};

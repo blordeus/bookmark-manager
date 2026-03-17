@@ -1,16 +1,20 @@
+import { BookmarkGrid } from "@/components/bookmarks/bookmark-grid";
 import { BookmarksHeading } from "@/components/dashboard/bookmarks-heading";
 import { SortDropdown } from "@/components/layout/sort-dropdown";
+import { mockBookmarks } from "@/lib/utils/mock-bookmarks";
 
 export default function ArchivedPage() {
-  return (
-    <section className="rounded-radius-16 bg-white p-250 shadow-soft dark:bg-darkneutral-600">
-      <BookmarksHeading title="Archived bookmarks">
-        <SortDropdown />
-      </BookmarksHeading>
+  const archivedBookmarks = mockBookmarks.filter((bookmark) => bookmark.is_archived);
 
-      <div className="mt-300 rounded-radius-12 border border-dashed border-neutral-400 p-400 text-[14px] font-medium text-neutral-500 dark:border-darkneutral-500 dark:text-darkneutral-100">
-        Archived bookmark grid goes here in the next slice.
+  return (
+    <section className="space-y-300">
+      <div className="rounded-radius-16 bg-white p-250 shadow-soft dark:bg-darkneutral-600">
+        <BookmarksHeading title="Archived bookmarks">
+          <SortDropdown />
+        </BookmarksHeading>
       </div>
+
+      <BookmarkGrid bookmarks={archivedBookmarks} />
     </section>
   );
 }

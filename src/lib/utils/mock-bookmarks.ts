@@ -1,0 +1,88 @@
+import type { Bookmark } from "@/types/bookmark";
+
+export const mockBookmarks: Bookmark[] = [
+  {
+    id: "1",
+    title: "Frontend Mentor",
+    description:
+      "Improve your front-end coding skills by building realistic projects.",
+    url: "https://www.frontendmentor.io",
+    favicon_url: "https://www.google.com/s2/favicons?domain=frontendmentor.io&sz=64",
+    tags: ["Learning", "Practice", "Community"],
+    visit_count: 47,
+    created_at: "2025-01-23",
+    last_visited_at: "2025-01-15",
+    is_archived: false,
+    is_pinned: true,
+  },
+  {
+    id: "2",
+    title: "MDN Web Docs",
+    description:
+      "Resources for developers, by developers. Documentation for HTML, CSS, and JavaScript.",
+    url: "https://developer.mozilla.org",
+    favicon_url: "https://www.google.com/s2/favicons?domain=developer.mozilla.org&sz=64",
+    tags: ["Learning", "CSS", "Tools"],
+    visit_count: 32,
+    created_at: "2025-02-04",
+    last_visited_at: "2025-02-11",
+    is_archived: false,
+    is_pinned: false,
+  },
+  {
+    id: "3",
+    title: "Tailwind CSS",
+    description:
+      "A utility-first CSS framework for rapidly building custom user interfaces.",
+    url: "https://tailwindcss.com",
+    favicon_url: "https://www.google.com/s2/favicons?domain=tailwindcss.com&sz=64",
+    tags: ["CSS", "Tools", "Design"],
+    visit_count: 28,
+    created_at: "2025-01-29",
+    last_visited_at: "2025-02-03",
+    is_archived: false,
+    is_pinned: false,
+  },
+  {
+    id: "4",
+    title: "React",
+    description:
+      "The library for web and native user interfaces with a component-based model.",
+    url: "https://react.dev",
+    favicon_url: "https://www.google.com/s2/favicons?domain=react.dev&sz=64",
+    tags: ["Learning", "Tools"],
+    visit_count: 25,
+    created_at: "2025-01-10",
+    last_visited_at: "2025-01-28",
+    is_archived: false,
+    is_pinned: false,
+  },
+  {
+    id: "5",
+    title: "CSS Grid Garden",
+    description:
+      "A game for learning CSS Grid by placing vegetables in the right spots.",
+    url: "https://cssgridgarden.com",
+    favicon_url: "https://www.google.com/s2/favicons?domain=cssgridgarden.com&sz=64",
+    tags: ["Learning", "CSS", "Practice"],
+    visit_count: 14,
+    created_at: "2025-01-02",
+    last_visited_at: "2025-01-21",
+    is_archived: true,
+    is_pinned: false,
+  },
+  {
+    id: "6",
+    title: "JavaScript.info",
+    description:
+      "Modern JavaScript tutorial from the basics to advanced topics with practical examples.",
+    url: "https://javascript.info",
+    favicon_url: "https://www.google.com/s2/favicons?domain=javascript.info&sz=64",
+    tags: ["Learning", "Tools"],
+    visit_count: 19,
+    created_at: "2025-02-01",
+    last_visited_at: null,
+    is_archived: true,
+    is_pinned: false,
+  },
+];

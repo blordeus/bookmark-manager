@@ -37,7 +37,7 @@ export function AppSidebar({ currentPath }: AppSidebarProps) {
           Tags
         </p>
 
-        <div className="space-y-050">
+        <div className="space-y-25">
           {mockTags.map((tag) => (
             <TagFilterItem key={tag.name} label={tag.name} count={tag.count} />
           ))}
