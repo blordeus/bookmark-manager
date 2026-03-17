@@ -1,36 +1,141 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bookmark Manager App
+
+## Overview
+
+A full-stack bookmark manager built with Next.js, Supabase, and Tailwind CSS. Users can create, edit, archive, pin, search, filter, and organize bookmarks through a responsive interface with light and dark themes.
+
+---
+
+## Features
+
+- User authentication with Supabase
+- Create, edit, archive, unarchive, and delete bookmarks
+- Pin important bookmarks
+- Search bookmarks by title
+- Filter bookmarks by tags
+- Sort by:
+  - Recently added
+  - Recently visited
+  - Most visited
+- Responsive dashboard layout
+- Light and dark theme support
+
+---
+
+## Tech Stack
+
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS v4
+- Supabase (Auth + Database)
+- React Hook Form
+- Zod
+- Sonner (toasts)
+
+---
+
+## Screenshots
+
+### Dashboard
+<!-- Add screenshot here -->
+
+### Archived View
+<!-- Add screenshot here -->
+
+### Add Bookmark Modal
+<!-- Add screenshot here -->
+
+### Dark Mode
+<!-- Add screenshot here -->
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone the repository
 
-```bash
+git clone https://github.com/your-username/bookmark-manager.git
+cd bookmark-manager
+
+### 2. Install dependencies
+
+npm install
+
+### 3. Add environment variables
+
+Create a `.env.local` file in the root:
+
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+SEED_USER_EMAIL=
+SEED_USER_PASSWORD=
+
+### 4. Run the development server
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App will run on:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Seeding Data (Optional)
 
-To learn more about Next.js, take a look at the following resources:
+To populate the database with starter bookmarks:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+node scripts/seed-bookmarks.mjs
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+NEXT_PUBLIC_SUPABASE_URL – Supabase project URL  
+NEXT_PUBLIC_SUPABASE_ANON_KEY – Supabase public anon key  
+NEXT_PUBLIC_SITE_URL – App base URL  
+SEED_USER_EMAIL – Test user email  
+SEED_USER_PASSWORD – Test user password  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Notes
+
+This project started as a Frontend Mentor challenge and was expanded into a full-stack application.
+
+Key decisions:
+
+- URL query params for filtering and sorting
+- Supabase for auth and data
+- Nested dashboard routes
+- Dynamic sidebar counts
+- Theme switching with Tailwind
+
+---
+
+## Future Improvements
+
+- Persist theme preference
+- Improve accessibility
+- Optimize filtering queries
+- Bulk bookmark actions
+- Metadata previews
+
+---
+
+## Deployment
+
+Deploy with Vercel.
+
+Required env:
+
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_SITE_URL=https://your-project.vercel.app
+
+---
+
+## Author
+
+Bryan Lordeus
