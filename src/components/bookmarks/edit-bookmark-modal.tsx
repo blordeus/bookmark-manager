@@ -62,7 +62,7 @@ export function EditBookmarkModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-radius-10 border border-neutral-400 px-250 py-150 text-[14px] font-semibold text-neutral-900 dark:border-darkneutral-500 dark:text-white"
+            className="rounded-radius-10 border border-app px-250 py-150 text-[14px] font-semibold text-app"
           >
             Cancel
           </button>
@@ -90,7 +90,7 @@ function Field({
     <div className="space-y-100">
       <label
         htmlFor={name}
-        className="block text-[14px] font-semibold text-neutral-900 dark:text-white"
+        className="block text-[14px] font-semibold text-app"
       >
         {label}
       </label>
@@ -101,14 +101,14 @@ function Field({
           name={name}
           rows={4}
           defaultValue={defaultValue}
-          className="w-full rounded-radius-10 border border-neutral-400 bg-white px-200 py-150 text-[16px] text-neutral-900 outline-none focus:border-teal-800 dark:border-darkneutral-500 dark:bg-darkneutral-800 dark:text-white"
+          className="w-full rounded-radius-10 border border-app bg-surface-input px-200 py-150 text-[16px] text-app outline-none focus:border-teal-800"
         />
       ) : (
         <input
           id={name}
           name={name}
           defaultValue={defaultValue}
-          className="w-full rounded-radius-10 border border-neutral-400 bg-white px-200 py-150 text-[16px] text-neutral-900 outline-none focus:border-teal-800 dark:border-darkneutral-500 dark:bg-darkneutral-800 dark:text-white"
+          className="w-full rounded-radius-10 border border-app bg-surface-input px-200 py-150 text-[16px] text-app outline-none focus:border-teal-800"
         />
       )}
     </div>

@@ -138,10 +138,16 @@ export async function getBookmarks({
 
   // Filter by tags
   if (tags.length > 0) {
-    bookmarks = bookmarks.filter((bookmark) =>
-      tags.some((tag) => bookmark.tags.includes(tag))
-    );
-  }
+  const normalizedTags = tags.map((tag) => tag.toLowerCase());
+
+  bookmarks = bookmarks.filter((bookmark) =>
+    normalizedTags.every((tag) =>
+      bookmark.tags.some(
+        (bookmarkTag) => bookmarkTag.trim().toLowerCase() === tag,
+      ),
+    ),
+  );
+}
 
   // Apply sorting
   return applySort(bookmarks, sort);

@@ -11,7 +11,7 @@ export function Avatar({ name }: AvatarProps) {
     .toUpperCase();
 
   return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-300 text-[14px] font-semibold text-neutral-900 dark:bg-darkneutral-500 dark:text-white">
+    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-muted text-[14px] font-semibold text-app">
       {initials}
     </div>
   );

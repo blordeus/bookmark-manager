@@ -13,7 +13,7 @@ export function AppSidebar({ currentPath, sidebarStats }: AppSidebarProps) {
     <aside className="hidden w-[272px] shrink-0 rounded-radius-16 border border-app bg-surface p-250 shadow-soft lg:block">
       <Link
         href="/dashboard"
-        className="mb-300 inline-flex text-[20px] font-bold text-teal-800 dark:text-white"
+        className="mb-300 inline-flex text-[20px] font-bold text-app"
       >
         Bookmark Manager
       </Link>

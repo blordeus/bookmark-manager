@@ -14,54 +14,54 @@ export function AddBookmarkForm() {
   const [state, formAction] = useActionState(createBookmarkAction, initialState);
 
   return (
-    <form action={formAction} className="space-y-200 rounded-radius-16 bg-white p-250 shadow-soft dark:bg-darkneutral-600">
-      <h2 className="text-[20px] font-bold leading-[120%] text-neutral-900 dark:text-white">
+    <form action={formAction} className="space-y-200 rounded-radius-16 bg-surface p-250 shadow-soft">
+      <h2 className="text-[20px] font-bold leading-[120%] text-app">
         Add a bookmark
       </h2>
 
       <div className="space-y-100">
-        <label htmlFor="title" className="block text-[14px] font-semibold text-neutral-900 dark:text-white">
+        <label htmlFor="title" className="block text-[14px] font-semibold text-app">
           Title *
         </label>
         <input
           id="title"
           name="title"
-          className="w-full rounded-radius-10 border border-neutral-400 bg-white px-200 py-150 text-[16px] text-neutral-900 outline-none focus:border-teal-800 dark:border-darkneutral-500 dark:bg-darkneutral-800 dark:text-white"
+          className="w-full rounded-radius-10 border border-app bg-surface-input px-200 py-150 text-[16px] text-app outline-none focus:border-teal-800"
         />
       </div>
 
       <div className="space-y-100">
-        <label htmlFor="description" className="block text-[14px] font-semibold text-neutral-900 dark:text-white">
+        <label htmlFor="description" className="block text-[14px] font-semibold text-app">
           Description *
         </label>
         <textarea
           id="description"
           name="description"
           rows={4}
-          className="w-full rounded-radius-10 border border-neutral-400 bg-white px-200 py-150 text-[16px] text-neutral-900 outline-none focus:border-teal-800 dark:border-darkneutral-500 dark:bg-darkneutral-800 dark:text-white"
+          className="w-full rounded-radius-10 border border-app bg-surface-input px-200 py-150 text-[16px] text-app outline-none focus:border-teal-800"
         />
       </div>
 
       <div className="space-y-100">
-        <label htmlFor="url" className="block text-[14px] font-semibold text-neutral-900 dark:text-white">
+        <label htmlFor="url" className="block text-[14px] font-semibold text-app">
           Website URL *
         </label>
         <input
           id="url"
           name="url"
-          className="w-full rounded-radius-10 border border-neutral-400 bg-white px-200 py-150 text-[16px] text-neutral-900 outline-none focus:border-teal-800 dark:border-darkneutral-500 dark:bg-darkneutral-800 dark:text-white"
+          className="w-full rounded-radius-10 border border-app bg-surface-input px-200 py-150 text-[16px] text-app outline-none focus:border-teal-800"
         />
       </div>
 
       <div className="space-y-100">
-        <label htmlFor="tags" className="block text-[14px] font-semibold text-neutral-900 dark:text-white">
+        <label htmlFor="tags" className="block text-[14px] font-semibold text-app">
           Tags *
         </label>
         <input
           id="tags"
           name="tags"
           placeholder="e.g. design, learning, tools"
-          className="w-full rounded-radius-10 border border-neutral-400 bg-white px-200 py-150 text-[16px] text-neutral-900 outline-none focus:border-teal-800 dark:border-darkneutral-500 dark:bg-darkneutral-800 dark:text-white"
+          className="w-full rounded-radius-10 border border-app bg-surface-input px-200 py-150 text-[16px] text-app outline-none focus:border-teal-800"
         />
       </div>
 

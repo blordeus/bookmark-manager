@@ -19,9 +19,9 @@ export function Button({
         variant === "primary" &&
           "bg-teal-800 text-white hover:bg-teal-700",
         variant === "secondary" &&
-          "border border-teal-800 bg-transparent text-teal-800 hover:bg-teal-800/5 dark:text-white dark:border-darkneutral-300 dark:hover:bg-darkneutral-500",
+          "border border-app bg-transparent text-app hover:bg-surface-muted",
         variant === "ghost" &&
-          "bg-transparent text-neutral-900 hover:bg-neutral-300 dark:text-white dark:hover:bg-darkneutral-500",
+          "bg-transparent text-app hover:bg-surface-muted",
         variant === "destructive" &&
           "bg-red-800 text-white hover:bg-red-600",
         className,

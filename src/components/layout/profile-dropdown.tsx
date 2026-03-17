@@ -22,30 +22,30 @@ export function ProfileDropdown({ name, email }: ProfileDropdownProps) {
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="inline-flex items-center gap-100 rounded-radius-10 border border-neutral-400 bg-white p-100 transition hover:bg-neutral-100 dark:border-darkneutral-500 dark:bg-darkneutral-800 dark:hover:bg-darkneutral-500"
+        className="inline-flex items-center gap-100 rounded-radius-10 border border-app bg-surface-input p-100 transition hover:bg-surface-muted"
       >
         <Avatar name={name} />
-        <ChevronDown className="hidden h-4 w-4 text-neutral-900 sm:block dark:text-white" />
+        <ChevronDown className="hidden h-4 w-4 text-app sm:block" />
       </button>
 
       {open ? (
-        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-[280px] rounded-radius-16 border border-neutral-300 bg-white p-250 shadow-soft dark:border-darkneutral-500 dark:bg-darkneutral-600">
+        <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-[280px] rounded-radius-16 border border-app bg-surface p-250 shadow-soft">
           <div className="flex items-center gap-150">
             <Avatar name={name} />
             <div>
-              <p className="text-[14px] font-semibold text-neutral-900 dark:text-white">
+              <p className="text-[14px] font-semibold text-app">
                 {name}
               </p>
-              <p className="text-[12px] font-medium text-neutral-500 dark:text-darkneutral-100">
+              <p className="text-[12px] font-medium text-muted">
                 {email}
               </p>
             </div>
           </div>
 
-          <div className="my-250 h-px bg-neutral-300 dark:bg-darkneutral-500" />
+          <div className="my-250 h-px bg-border" />
 
           <div className="space-y-150">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-neutral-500 dark:text-darkneutral-100">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-muted">
               Theme
             </p>
 
@@ -69,7 +69,7 @@ export function ProfileDropdown({ name, email }: ProfileDropdownProps) {
             </div>
           </div>
 
-          <div className="my-250 h-px bg-neutral-300 dark:bg-darkneutral-500" />
+          <div className="my-250 h-px bg-border" />
 
           <button
             type="button"
@@ -79,7 +79,7 @@ export function ProfileDropdown({ name, email }: ProfileDropdownProps) {
               })
             }
             disabled={pending}
-            className="inline-flex items-center gap-100 text-[14px] font-semibold text-neutral-900 dark:text-white"
+            className="inline-flex items-center gap-100 text-[14px] font-semibold text-app"
           >
             <LogOut className="h-4 w-4" />
             Logout

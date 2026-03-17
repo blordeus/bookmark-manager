@@ -12,7 +12,7 @@ export function BookmarkMetadata({
   lastVisitedAt,
 }: BookmarkMetadataProps) {
   return (
-    <div className="flex flex-wrap items-center gap-x-150 gap-y-050 text-[12px] font-medium leading-[140%] text-neutral-500 dark:text-darkneutral-100">
+    <div className="flex flex-wrap items-center gap-x-150 gap-y-050 text-[12px] font-medium leading-[140%] text-muted">
       <span>{visitCount} views</span>
       <span>•</span>
       <span>{formatShortDate(createdAt)}</span>

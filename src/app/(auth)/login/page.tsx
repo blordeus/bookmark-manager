@@ -31,7 +31,7 @@ export default function LoginPage() {
         <div className="text-right">
           <Link
             href="/forgot-password"
-            className="text-[14px] font-medium text-teal-800 hover:underline dark:text-white"
+            className="text-[14px] font-medium text-teal-800 hover:underline"
           >
             Forgot password?
           </Link>
@@ -42,11 +42,11 @@ export default function LoginPage() {
         <AuthSubmitButton>Log in</AuthSubmitButton>
       </form>
 
-      <p className="mt-300 text-center text-[14px] font-medium text-neutral-800 dark:text-darkneutral-100">
+      <p className="mt-300 text-center text-[14px] font-medium text-muted">
         Don&apos;t have an account?{" "}
         <Link
           href="/signup"
-          className="font-semibold text-teal-800 hover:underline dark:text-white"
+          className="font-semibold text-teal-800 hover:underline"
         >
           Sign up
         </Link>

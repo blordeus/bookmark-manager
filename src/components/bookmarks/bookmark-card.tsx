@@ -34,7 +34,7 @@ export function BookmarkCard({ bookmark }: BookmarkCardProps) {
 
         <div className="flex items-center gap-100">
           {!bookmark.is_archived && bookmark.is_pinned ? (
-            <span className="inline-flex h-9 w-9 items-center justify-center rounded-radius-10 bg-surface-elevated text-teal-800 dark:text-white">
+            <span className="inline-flex h-9 w-9 items-center justify-center rounded-radius-10 bg-surface-elevated text-teal-800">
               <Pin className="h-4 w-4 fill-current" />
             </span>
           ) : null}

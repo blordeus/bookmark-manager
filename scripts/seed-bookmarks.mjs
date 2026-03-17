@@ -18,8 +18,6 @@ if (!supabaseUrl || !supabaseAnonKey || !seedUserEmail || !seedUserPassword) {
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-const jsonPath = path.resolve("data.json");
-
 function getRemoteFavicon(url) {
   try {
     const hostname = new URL(url).hostname;

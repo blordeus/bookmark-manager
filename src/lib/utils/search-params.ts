@@ -15,7 +15,7 @@ export function getTagsQuery(
 
   return raw
     .split(",")
-    .map((tag) => tag.trim())
+    .map((tag) => tag.trim().toLowerCase())
     .filter(Boolean);
 }
 

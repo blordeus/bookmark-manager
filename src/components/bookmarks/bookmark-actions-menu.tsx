@@ -64,13 +64,13 @@ export function BookmarkActionsMenu({ bookmark }: BookmarkActionsMenuProps) {
           type="button"
           onClick={() => setOpen((prev) => !prev)}
           aria-label="Open bookmark actions"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-radius-10 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900 dark:text-darkneutral-100 dark:hover:bg-darkneutral-500 dark:hover:text-white"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-radius-10 text-muted transition hover:bg-surface-muted hover:text-app"
         >
           <EllipsisVertical className="h-4 w-4" />
         </button>
 
         {open ? (
-          <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-[220px] rounded-radius-16 border border-neutral-300 bg-white p-100 shadow-soft dark:border-darkneutral-500 dark:bg-darkneutral-600">
+          <div className="absolute right-0 top-[calc(100%+8px)] z-20 w-[220px] rounded-radius-16 border border-app bg-surface p-100 shadow-soft">
             <ActionButton
               icon={<ExternalLink className="h-4 w-4" />}
               label="Visit"
@@ -212,7 +212,7 @@ function ActionButton({
       className={`flex w-full items-center gap-150 rounded-radius-10 px-150 py-125 text-left text-[14px] font-medium transition ${
         destructive
           ? "text-red-800 hover:bg-red-600/10"
-          : "text-neutral-900 hover:bg-neutral-100 dark:text-white dark:hover:bg-darkneutral-500"
+          : "text-app hover:bg-surface-muted"
       }`}
     >
       {icon}

@@ -99,34 +99,38 @@ select {
   font: inherit;
 }
 
-.bg-app {
+@utility bg-app {
   background-color: var(--background);
 }
 
-.bg-surface {
+@utility bg-surface {
   background-color: var(--surface);
 }
 
-.bg-surface-elevated {
+@utility bg-surface-elevated {
   background-color: var(--surface-elevated);
 }
 
-.bg-surface-muted {
+@utility bg-surface-muted {
   background-color: var(--surface-muted);
 }
 
-.bg-surface-input {
+@utility bg-surface-input {
   background-color: var(--surface-input);
 }
 
-.text-app {
+@utility bg-border {
+  background-color: var(--border);
+}
+
+@utility text-app {
   color: var(--foreground);
 }
 
-.text-muted {
+@utility text-muted {
   color: var(--text-muted);
 }
 
-.border-app {
+@utility border-app {
   border-color: var(--border);
 }

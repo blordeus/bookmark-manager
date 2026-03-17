@@ -30,11 +30,11 @@ export function MobileSidebarDrawer({
         aria-label="Close sidebar"
       />
 
-      <aside className="absolute left-0 top-0 h-full w-[320px] max-w-[88%] overflow-y-auto bg-white p-250 shadow-soft dark:bg-darkneutral-600">
+      <aside className="absolute left-0 top-0 h-full w-[320px] max-w-[88%] overflow-y-auto bg-surface p-250 shadow-soft">
         <div className="mb-300 flex items-center justify-between">
           <Link
             href="/dashboard"
-            className="text-[20px] font-bold text-teal-800 dark:text-white"
+            className="text-[20px] font-bold text-app"
           >
             Bookmark Manager
           </Link>
@@ -42,7 +42,7 @@ export function MobileSidebarDrawer({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-radius-10 p-100 text-neutral-900 dark:text-white"
+            className="rounded-radius-10 p-100 text-app"
           >
             <X className="h-5 w-5" />
           </button>
@@ -64,7 +64,7 @@ export function MobileSidebarDrawer({
         </nav>
 
         <div className="mt-400">
-          <p className="mb-150 text-[12px] font-semibold uppercase tracking-[0.08em] text-neutral-500 dark:text-darkneutral-100">
+          <p className="mb-150 text-[12px] font-semibold uppercase tracking-[0.08em] text-muted">
             Tags
           </p>
 

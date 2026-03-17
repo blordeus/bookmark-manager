@@ -36,7 +36,7 @@ export default async function DashboardPage({
 
   return (
     <section className="space-y-300">
-      <div className="rounded-radius-16 bg-white p-250 shadow-soft dark:bg-darkneutral-600">
+      <div className="rounded-radius-16 bg-surface p-250 shadow-soft">
         <BookmarksHeading title={heading}>
           <SortDropdown />
         </BookmarksHeading>

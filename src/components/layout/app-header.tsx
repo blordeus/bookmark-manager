@@ -29,7 +29,7 @@ export function AppHeader({ currentPath, profile, sidebarStats }: AppHeaderProps
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-radius-10 border border-neutral-400 bg-white text-neutral-900 dark:border-darkneutral-500 dark:bg-darkneutral-800 dark:text-white"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-radius-10 border border-app bg-surface-input text-app"
             aria-label="Open sidebar"
           >
             <Menu className="h-5 w-5" />

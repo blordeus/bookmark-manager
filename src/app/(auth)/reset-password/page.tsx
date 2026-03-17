@@ -37,10 +37,10 @@ export default function ResetPasswordPage() {
         <AuthSubmitButton>Reset password</AuthSubmitButton>
       </form>
 
-      <p className="mt-300 text-center text-[14px] font-medium text-neutral-800 dark:text-darkneutral-100">
+      <p className="mt-300 text-center text-[14px] font-medium text-muted">
         <Link
           href="/login"
-          className="font-semibold text-teal-800 hover:underline dark:text-white"
+          className="font-semibold text-teal-800 hover:underline"
         >
           Back to login
         </Link>

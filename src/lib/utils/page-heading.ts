@@ -1,3 +1,16 @@
+function prettyTag(tag: string) {
+  const specialCases: Record<string, string> = {
+    css: "CSS",
+    html: "HTML",
+    javascript: "JavaScript",
+    ai: "AI",
+    git: "Git",
+  };
+
+  return specialCases[tag.toLowerCase()] ??
+    tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase();
+}
+
 export function getBookmarksHeading({
   query,
   tags,
@@ -12,7 +25,7 @@ export function getBookmarksHeading({
   }
 
   if (tags.length > 0) {
-    return `Bookmarks tagged: ${tags.join(", ")}`;
+    return `Bookmarks tagged: ${tags.map(prettyTag).join(", ")}`;
   }
 
   if (isArchived) {

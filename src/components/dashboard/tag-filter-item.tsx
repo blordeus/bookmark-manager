@@ -13,6 +13,8 @@ export function TagFilterItem({ label, count }: TagFilterItemProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const normalizedLabel = label.toLowerCase();
+
   const selectedTags = (searchParams.get("tags") ?? "")
     .split(",")
     .map((tag) => tag.trim())

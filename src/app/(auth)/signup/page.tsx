@@ -41,11 +41,11 @@ export default function SignupPage() {
         <AuthSubmitButton>Create account</AuthSubmitButton>
       </form>
 
-      <p className="mt-300 text-center text-[14px] font-medium text-neutral-800 dark:text-darkneutral-100">
+      <p className="mt-300 text-center text-[14px] font-medium text-muted">
         Already have an account?{" "}
         <Link
           href="/login"
-          className="font-semibold text-teal-800 hover:underline dark:text-white"
+          className="font-semibold text-teal-800 hover:underline"
         >
           Log in
         </Link>

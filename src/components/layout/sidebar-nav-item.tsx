@@ -21,7 +21,7 @@ export function SidebarNavItem({
         "flex items-center justify-between rounded-radius-10 px-200 py-150 text-[14px] font-semibold transition",
         active
           ? "bg-teal-800 text-white"
-          : "text-neutral-900 hover:bg-neutral-100 dark:text-white dark:hover:bg-darkneutral-500",
+          : "text-app hover:bg-surface-muted",
       )}
     >
       <span>{label}</span>
