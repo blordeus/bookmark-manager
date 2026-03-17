@@ -2,6 +2,7 @@
 
 import { Menu } from "lucide-react";
 import { useState } from "react";
+import { AddBookmarkModal } from "@/components/bookmarks/add-bookmark-modal";
 import { SearchBar } from "@/components/dashboard/search-bar";
 import { Button } from "@/components/shared/button";
 import { MobileSidebarDrawer } from "./mobile-sidebar-drawer";
@@ -17,6 +18,7 @@ type AppHeaderProps = {
 
 export function AppHeader({ currentPath, profile }: AppHeaderProps) {
   const [open, setOpen] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
 
   return (
     <>
@@ -41,7 +43,9 @@ export function AppHeader({ currentPath, profile }: AppHeaderProps) {
         </div>
 
         <div className="flex items-center gap-150">
-          <Button className="w-full sm:w-auto">+ Add Bookmark</Button>
+          <Button className="w-full sm:w-auto" onClick={() => setShowAddModal(true)}>
+            + Add Bookmark
+          </Button>
           <ProfileDropdown name={profile.full_name} email={profile.email} />
         </div>
       </header>
@@ -50,6 +54,11 @@ export function AppHeader({ currentPath, profile }: AppHeaderProps) {
         open={open}
         onClose={() => setOpen(false)}
         currentPath={currentPath}
+      />
+
+      <AddBookmarkModal
+        open={showAddModal}
+        onClose={() => setShowAddModal(false)}
       />
     </>
   );

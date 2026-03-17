@@ -1,9 +1,11 @@
 "use client";
 
 import { ChevronDown, LogOut, Moon, Sun } from "lucide-react";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { logoutAction } from "@/actions/auth";
 import { Avatar } from "@/components/shared/avatar";
 import { Button } from "@/components/shared/button";
+import { useTheme } from "@/hooks/use-theme";
 
 type ProfileDropdownProps = {
   name: string;
@@ -12,6 +14,8 @@ type ProfileDropdownProps = {
 
 export function ProfileDropdown({ name, email }: ProfileDropdownProps) {
   const [open, setOpen] = useState(false);
+  const [pending, startTransition] = useTransition();
+  const { theme, setTheme } = useTheme();
 
   return (
     <div className="relative">
@@ -46,11 +50,19 @@ export function ProfileDropdown({ name, email }: ProfileDropdownProps) {
             </p>
 
             <div className="flex gap-100">
-              <Button variant="secondary" className="flex-1 gap-100">
+              <Button
+                variant={theme === "light" ? "secondary" : "ghost"}
+                className="flex-1 gap-100"
+                onClick={() => setTheme("light")}
+              >
                 <Sun className="h-4 w-4" />
                 Light
               </Button>
-              <Button variant="ghost" className="flex-1 gap-100">
+              <Button
+                variant={theme === "dark" ? "secondary" : "ghost"}
+                className="flex-1 gap-100"
+                onClick={() => setTheme("dark")}
+              >
                 <Moon className="h-4 w-4" />
                 Dark
               </Button>
@@ -61,6 +73,12 @@ export function ProfileDropdown({ name, email }: ProfileDropdownProps) {
 
           <button
             type="button"
+            onClick={() =>
+              startTransition(async () => {
+                await logoutAction();
+              })
+            }
+            disabled={pending}
             className="inline-flex items-center gap-100 text-[14px] font-semibold text-neutral-900 dark:text-white"
           >
             <LogOut className="h-4 w-4" />

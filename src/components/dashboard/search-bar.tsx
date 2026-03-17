@@ -2,21 +2,16 @@
 
 import { Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback } from "react";
 
 export function SearchBar() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [value, setValue] = useState(searchParams.get("q") ?? "");
+  const value = searchParams.get("q") ?? "";
 
-  useEffect(() => {
-    setValue(searchParams.get("q") ?? "");
-  }, [searchParams]);
-
-  function updateSearch(nextValue: string) {
-    setValue(nextValue);
+  const updateSearch = useCallback((nextValue: string) => {
 
     const params = new URLSearchParams(searchParams.toString());
 
@@ -27,7 +22,7 @@ export function SearchBar() {
     }
 
     router.replace(`${pathname}?${params.toString()}`);
-  }
+  }, [pathname, router, searchParams]);
 
   return (
     <div className="relative w-full">

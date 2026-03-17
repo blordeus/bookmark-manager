@@ -119,3 +119,73 @@ export async function togglePinBookmarkAction(bookmarkId: string, nextPinned: bo
 
   revalidatePath("/dashboard");
 }
+
+export async function updateBookmarkAction(
+  _prevState: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const bookmarkId = formData.get("bookmarkId") as string;
+  const parsed = bookmarkSchema.safeParse({
+    title: formData.get("title"),
+    description: formData.get("description"),
+    url: formData.get("url"),
+    tags: formData.get("tags"),
+  });
+
+  if (!parsed.success) {
+    return {
+      success: false,
+      error: parsed.error.issues[0]?.message ?? "Invalid form submission",
+    };
+  }
+
+  const supabase = await createClient();
+
+  const faviconUrl = getFaviconUrl(parsed.data.url);
+
+  const { error } = await supabase
+    .from("bookmarks")
+    .update({
+      title: parsed.data.title,
+      description: parsed.data.description,
+      url: parsed.data.url,
+      favicon_url: faviconUrl,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", bookmarkId);
+
+  if (error) {
+    return {
+      success: false,
+      error: error.message,
+    };
+  }
+
+  await supabase.from("bookmark_tags").delete().eq("bookmark_id", bookmarkId);
+
+  const tags = parseTags(parsed.data.tags);
+
+  if (tags.length > 0) {
+    const { error: tagsError } = await supabase.from("bookmark_tags").insert(
+      tags.map((tag) => ({
+        bookmark_id: bookmarkId,
+        tag_name: tag,
+      })),
+    );
+
+    if (tagsError) {
+      return {
+        success: false,
+        error: tagsError.message,
+      };
+    }
+  }
+
+  revalidatePath("/dashboard");
+  revalidatePath("/archived");
+
+  return {
+    success: true,
+    error: null,
+  };
+}
