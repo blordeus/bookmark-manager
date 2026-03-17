@@ -17,6 +17,13 @@ type BookmarkRow = {
   bookmark_tags: { tag_name: string }[];
 };
 
+type GetBookmarksParams = {
+  isArchived: boolean;
+  query: string;
+  tags: string[];
+  sort: SortOption;
+};
+
 function mapBookmark(row: BookmarkRow): Bookmark {
   return {
     id: row.id,
@@ -60,17 +67,39 @@ function applySort(bookmarks: Bookmark[], sort: SortOption) {
   return sorted;
 }
 
+export async function getAllBookmarksForUser() {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("bookmarks")
+    .select(`
+      id,
+      user_id,
+      title,
+      description,
+      url,
+      favicon_url,
+      visit_count,
+      created_at,
+      updated_at,
+      last_visited_at,
+      is_archived,
+      is_pinned,
+      bookmark_tags ( tag_name )
+    `)
+    .order("created_at", { ascending: false });
+
+  if (error || !data) return [];
+
+  return (data as BookmarkRow[]).map(mapBookmark);
+}
+
 export async function getBookmarks({
-  isArchived = false,
-  query = "",
-  tags = [],
-  sort = "recently_added",
-}: {
-  isArchived?: boolean;
-  query?: string;
-  tags?: string[];
-  sort?: SortOption;
-}) {
+  isArchived,
+  query,
+  tags,
+  sort,
+}: GetBookmarksParams): Promise<Bookmark[]> {
   const supabase = await createClient();
 
   const { data, error } = await supabase
@@ -92,43 +121,28 @@ export async function getBookmarks({
     `)
     .eq("is_archived", isArchived);
 
-  if (error || !data) {
-    return [];
-  }
+  if (error || !data) return [];
 
   let bookmarks = (data as BookmarkRow[]).map(mapBookmark);
 
-  const normalizedQuery = query.trim().toLowerCase();
-
-  if (normalizedQuery) {
-    bookmarks = bookmarks.filter((bookmark) => {
-      return (
-        bookmark.title.toLowerCase().includes(normalizedQuery) ||
-        bookmark.description.toLowerCase().includes(normalizedQuery) ||
-        bookmark.url.toLowerCase().includes(normalizedQuery)
-      );
-    });
-  }
-
-  if (tags.length > 0) {
-    const normalizedTags = tags.map((tag) => tag.toLowerCase());
-
-    bookmarks = bookmarks.filter((bookmark) =>
-      normalizedTags.every((tag) =>
-        bookmark.tags.some((bookmarkTag) => bookmarkTag.toLowerCase() === tag),
-      ),
+  // Filter by search query
+  if (query) {
+    const lowerQuery = query.toLowerCase();
+    bookmarks = bookmarks.filter(
+      (bookmark) =>
+        bookmark.title.toLowerCase().includes(lowerQuery) ||
+        bookmark.description.toLowerCase().includes(lowerQuery) ||
+        bookmark.url.toLowerCase().includes(lowerQuery)
     );
   }
 
-  if (!isArchived) {
-    const pinned = bookmarks.filter((bookmark) => bookmark.is_pinned);
-    const unpinned = bookmarks.filter((bookmark) => !bookmark.is_pinned);
-
-    return [
-      ...applySort(pinned, sort),
-      ...applySort(unpinned, sort),
-    ];
+  // Filter by tags
+  if (tags.length > 0) {
+    bookmarks = bookmarks.filter((bookmark) =>
+      tags.some((tag) => bookmark.tags.includes(tag))
+    );
   }
 
+  // Apply sorting
   return applySort(bookmarks, sort);
 }

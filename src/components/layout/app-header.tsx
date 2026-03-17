@@ -7,6 +7,7 @@ import { SearchBar } from "@/components/dashboard/search-bar";
 import { Button } from "@/components/shared/button";
 import { MobileSidebarDrawer } from "./mobile-sidebar-drawer";
 import { ProfileDropdown } from "./profile-dropdown";
+import type { SidebarStats } from "@/lib/utils/sidebar-stats";
 
 type AppHeaderProps = {
   currentPath: string;
@@ -14,9 +15,10 @@ type AppHeaderProps = {
     full_name: string;
     email: string;
   };
+  sidebarStats: SidebarStats;
 };
 
-export function AppHeader({ currentPath, profile }: AppHeaderProps) {
+export function AppHeader({ currentPath, profile, sidebarStats }: AppHeaderProps) {
   const [open, setOpen] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
 
@@ -54,6 +56,7 @@ export function AppHeader({ currentPath, profile }: AppHeaderProps) {
         open={open}
         onClose={() => setOpen(false)}
         currentPath={currentPath}
+        sidebarStats={sidebarStats}
       />
 
       <AddBookmarkModal

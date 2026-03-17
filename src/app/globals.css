@@ -59,16 +59,22 @@
   --background: #e8f0ef;
   --foreground: #051513;
   --surface: #ffffff;
+  --surface-elevated: #ffffff;
   --surface-muted: #dde9e7;
+  --surface-input: #ffffff;
   --border: #c0cfcc;
+  --text-muted: #4c5c59;
 }
 
 .dark {
   --background: #001414;
   --foreground: #ffffff;
   --surface: #002e2d;
-  --surface-muted: #001f1f;
+  --surface-elevated: #001f1f;
+  --surface-muted: #004241;
+  --surface-input: #001f1f;
   --border: #004746;
+  --text-muted: #b1b9b9;
 }
 
 html {
@@ -91,4 +97,36 @@ input,
 textarea,
 select {
   font: inherit;
+}
+
+.bg-app {
+  background-color: var(--background);
+}
+
+.bg-surface {
+  background-color: var(--surface);
+}
+
+.bg-surface-elevated {
+  background-color: var(--surface-elevated);
+}
+
+.bg-surface-muted {
+  background-color: var(--surface-muted);
+}
+
+.bg-surface-input {
+  background-color: var(--surface-input);
+}
+
+.text-app {
+  color: var(--foreground);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.border-app {
+  border-color: var(--border);
 }

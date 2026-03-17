@@ -3,19 +3,21 @@
 import Link from "next/link";
 import { X } from "lucide-react";
 import { TagFilterItem } from "@/components/dashboard/tag-filter-item";
-import { mockTags } from "../../lib/utils/dashboard";
+import type { SidebarStats } from "@/lib/utils/sidebar-stats";
 import { SidebarNavItem } from "./sidebar-nav-item";
 
 type MobileSidebarDrawerProps = {
   open: boolean;
   onClose: () => void;
   currentPath: string;
+  sidebarStats: SidebarStats;
 };
 
 export function MobileSidebarDrawer({
   open,
   onClose,
   currentPath,
+  sidebarStats
 }: MobileSidebarDrawerProps) {
   if (!open) return null;
 
@@ -50,13 +52,13 @@ export function MobileSidebarDrawer({
           <SidebarNavItem
             href="/dashboard"
             label="Home"
-            count={6}
+            count={sidebarStats.homeCount}
             active={currentPath === "/dashboard"}
           />
           <SidebarNavItem
             href="/dashboard/archived"
             label="Archived"
-            count={12}
+            count={sidebarStats.archivedCount}
             active={currentPath === "/dashboard/archived"}
           />
         </nav>
@@ -67,8 +69,8 @@ export function MobileSidebarDrawer({
           </p>
 
           <div className="space-y-25">
-            {mockTags.map((tag) => (
-              <TagFilterItem key={tag.name} label={tag.name} count={tag.count} />
+            {sidebarStats.tagCounts.map((tag) => (
+               <TagFilterItem key={tag.name} label={tag.name} count={tag.count}/>
             ))}
           </div>
         </div>

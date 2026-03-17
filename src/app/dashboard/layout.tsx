@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import { DashboardShell } from "@/components/layout/dashboard-shell";
+import { createClient } from "@/lib/supabase/server";
+import { getAllBookmarksForUser } from "@/lib/utils/bookmark-queries";
+import { getSidebarStats } from "@/lib/utils/sidebar-stats";
 
 export default async function DashboardLayout({
   children,
@@ -16,13 +18,20 @@ export default async function DashboardLayout({
     redirect("/login");
   }
 
+  const bookmarks = await getAllBookmarksForUser();
+  const sidebarStats = getSidebarStats(bookmarks);
+
   const profile = {
-    full_name: user.user_metadata.full_name || "User",
-    email: user.email || "",
+    full_name: user.user_metadata.full_name ?? "Emily Carter",
+    email: user.email ?? "emily101@gmail.com",
   };
 
   return (
-    <DashboardShell currentPath="" profile={profile}>
+    <DashboardShell
+      currentPath="/dashboard"
+      profile={profile}
+      sidebarStats={sidebarStats}
+    >
       {children}
     </DashboardShell>
   );

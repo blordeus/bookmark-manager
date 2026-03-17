@@ -8,10 +8,25 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const themeScript = `
+(function() {
+  try {
+    const saved = localStorage.getItem("theme");
+    const theme = saved === "dark" ? "dark" : "light";
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  } catch (e) {}
+})();
+`;
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(manrope.variable, "font-sans antialiased")}>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <ToastProvider />
         {children}
       </body>
