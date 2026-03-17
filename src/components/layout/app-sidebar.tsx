@@ -25,10 +25,10 @@ export function AppSidebar({ currentPath }: AppSidebarProps) {
           active={currentPath === "/dashboard"}
         />
         <SidebarNavItem
-          href="/archived"
+          href="/dashboard/archived"
           label="Archived"
           count={12}
-          active={currentPath === "/archived"}
+          active={currentPath === "/dashboard/archived"}
         />
       </nav>
 

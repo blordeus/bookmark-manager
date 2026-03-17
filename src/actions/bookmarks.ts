@@ -71,7 +71,7 @@ export async function createBookmarkAction(
   }
 
   revalidatePath("/dashboard");
-  revalidatePath("/archived");
+  revalidatePath("/dashboard/archived");
 
   return { success: true, error: null };
 }
@@ -85,7 +85,7 @@ export async function archiveBookmarkAction(bookmarkId: string) {
     .eq("id", bookmarkId);
 
   revalidatePath("/dashboard");
-  revalidatePath("/archived");
+  revalidatePath("/dashboard/archived");
 }
 
 export async function unarchiveBookmarkAction(bookmarkId: string) {
@@ -97,7 +97,7 @@ export async function unarchiveBookmarkAction(bookmarkId: string) {
     .eq("id", bookmarkId);
 
   revalidatePath("/dashboard");
-  revalidatePath("/archived");
+  revalidatePath("/dashboard/archived");
 }
 
 export async function deleteBookmarkAction(bookmarkId: string) {
@@ -106,7 +106,7 @@ export async function deleteBookmarkAction(bookmarkId: string) {
   await supabase.from("bookmarks").delete().eq("id", bookmarkId);
 
   revalidatePath("/dashboard");
-  revalidatePath("/archived");
+  revalidatePath("/dashboard/archived");
 }
 
 export async function togglePinBookmarkAction(bookmarkId: string, nextPinned: boolean) {
@@ -182,7 +182,7 @@ export async function updateBookmarkAction(
   }
 
   revalidatePath("/dashboard");
-  revalidatePath("/archived");
+  revalidatePath("/dashboard/archived");
 
   return {
     success: true,
