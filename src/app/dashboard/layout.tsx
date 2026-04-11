@@ -4,6 +4,9 @@ import { createClient } from "@/lib/supabase/server";
 import { getAllBookmarksForUser } from "@/lib/utils/bookmark-queries";
 import { getSidebarStats } from "@/lib/utils/sidebar-stats";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function DashboardLayout({
   children,
 }: {
