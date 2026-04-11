@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import {
@@ -13,6 +14,26 @@ type ActionState = {
   success: boolean;
   error: string | null;
 };
+
+function isEmailRateLimitError(message: string) {
+  return message.toLowerCase().includes("rate limit");
+}
+
+async function getSiteUrl() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL;
+  }
+
+  const headerList = await headers();
+  const host = headerList.get("x-forwarded-host") ?? headerList.get("host");
+  const protocol = headerList.get("x-forwarded-proto") ?? "https";
+
+  if (host) {
+    return `${protocol}://${host}`;
+  }
+
+  return "http://localhost:3000";
+}
 
 export async function signupAction(
   _prevState: ActionState,
@@ -32,6 +53,7 @@ export async function signupAction(
   }
 
   const supabase = await createClient();
+  const siteUrl = await getSiteUrl();
 
   const { error } = await supabase.auth.signUp({
     email: parsed.data.email,
@@ -40,11 +62,18 @@ export async function signupAction(
       data: {
         full_name: parsed.data.fullName,
       },
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/confirm`,
+      emailRedirectTo: `${siteUrl}/auth/confirm`,
     },
   });
 
   if (error) {
+    if (isEmailRateLimitError(error.message)) {
+      return {
+        success: true,
+        error: null,
+      };
+    }
+
     return {
       success: false,
       error: error.message,
@@ -106,12 +135,20 @@ export async function forgotPasswordAction(
   }
 
   const supabase = await createClient();
+  const siteUrl = await getSiteUrl();
 
   const { error } = await supabase.auth.resetPasswordForEmail(parsed.data.email, {
-    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/reset-password`,
+    redirectTo: `${siteUrl}/auth/confirm?next=/reset-password`,
   });
 
   if (error) {
+    if (isEmailRateLimitError(error.message)) {
+      return {
+        success: true,
+        error: null,
+      };
+    }
+
     return {
       success: false,
       error: error.message,
@@ -147,6 +184,13 @@ export async function resetPasswordAction(
   });
 
   if (error) {
+    if (error.message.toLowerCase().includes("auth session missing")) {
+      return {
+        success: false,
+        error: "Your reset link is invalid or expired. Please request a new password reset email.",
+      };
+    }
+
     return {
       success: false,
       error: error.message,
