@@ -15,6 +15,10 @@ type ActionState = {
   error: string | null;
 };
 
+function isEmailRateLimitError(message: string) {
+  return message.toLowerCase().includes("rate limit");
+}
+
 async function getSiteUrl() {
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     return process.env.NEXT_PUBLIC_SITE_URL;
@@ -63,6 +67,13 @@ export async function signupAction(
   });
 
   if (error) {
+    if (isEmailRateLimitError(error.message)) {
+      return {
+        success: true,
+        error: null,
+      };
+    }
+
     return {
       success: false,
       error: error.message,
@@ -131,6 +142,13 @@ export async function forgotPasswordAction(
   });
 
   if (error) {
+    if (isEmailRateLimitError(error.message)) {
+      return {
+        success: true,
+        error: null,
+      };
+    }
+
     return {
       success: false,
       error: error.message,
@@ -166,6 +184,13 @@ export async function resetPasswordAction(
   });
 
   if (error) {
+    if (error.message.toLowerCase().includes("auth session missing")) {
+      return {
+        success: false,
+        error: "Your reset link is invalid or expired. Please request a new password reset email.",
+      };
+    }
+
     return {
       success: false,
       error: error.message,
