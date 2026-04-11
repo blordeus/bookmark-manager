@@ -1,18 +1,21 @@
 import { z } from "zod";
 
 export const signupSchema = z.object({
-  fullName: z.string().min(1, "Full name is required"),
-  email: z.email("Enter a valid email address"),
+  fullName: z
+    .string()
+    .trim()
+    .min(1, "Full name is required"),
+  email: z.email("Enter a valid email address").trim(),
   password: z.string().min(8, "Must be at least 8 characters long"),
 });
 
 export const loginSchema = z.object({
-  email: z.email("Enter a valid email address"),
+  email: z.email("Enter a valid email address").trim(),
   password: z.string().min(1, "Password is required"),
 });
 
 export const forgotPasswordSchema = z.object({
-  email: z.email("Enter a valid email address"),
+  email: z.email("Enter a valid email address").trim(),
 });
 
 export const resetPasswordSchema = z
