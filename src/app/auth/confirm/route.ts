@@ -6,6 +6,8 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const token_hash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
+  const next = searchParams.get("next");
+  const nextPath = next?.startsWith("/") ? next : null;
 
   if (token_hash && type) {
     const supabase = await createClient();
@@ -16,11 +18,11 @@ export async function GET(request: Request) {
     });
 
     if (!error) {
-      if (type === "recovery") {
-        redirect("/reset-password");
+      if (nextPath) {
+        redirect(nextPath);
       }
 
-      redirect("/dashboard");
+      redirect(type === "recovery" ? "/reset-password" : "/dashboard");
     }
   }
 
